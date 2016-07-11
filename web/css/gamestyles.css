@@ -1,0 +1,35 @@
+body {
+    background-color: lightblue;
+}
+
+.row {
+    margin: 0px 0px 0px 0px;
+    width: auto;
+    border-width: 0px;
+    display: flex;
+
+}
+
+.block {
+    border-width: 3px;
+    border-style: solid;
+}
+
+.square {
+    height: 50px;
+    width: 50px;
+    color: #000000;;
+    background-color: #ffffff;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight:bold;
+    border-style: solid;
+    display: inline-block;
+    border-width: 2px;
+    line-height: 50px;
+    font-size:   200%;
+}
+
+
