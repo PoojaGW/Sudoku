@@ -46,21 +46,11 @@ public class GameServlet extends HttpServlet {
             throws IOException, ServletException {
         // Allocate a output writer to write the response message into the network socket.
         PrintWriter out = response.getWriter();
-
         // Write the response message, in an HTML document.
         try {
             response.setContentType("application/json");
-
-            //out.println("{\"result\":\"GameServlet.doPost\"}");
-
-            System.out.println("GameServlet.doPost");
-            Map<String, String> print = new HashMap<>();
-            for(Map.Entry<String, String[]> entry : request.getParameterMap().entrySet()) {
-                print.put(entry.getKey(), Arrays.toString(entry.getValue()));
-            }
-            System.out.println(print);
             String game = request.getParameterNames().nextElement();
-
+            System.out.println(game);
             if(Sudoku.check(game, sudoku))
                 out.println("{\"result\":\"true\"}");
             else
@@ -69,6 +59,20 @@ public class GameServlet extends HttpServlet {
 //            System.out.println(Arrays.toString(request.getParameterValues("game")));
         } finally {
             out.close();  // Always close the output writer
+        }
+    }
+
+    @Override
+    public void doPut(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+
+        PrintWriter out = response.getWriter();
+        try {
+            response.setContentType("application/json");
+            out.println(Sudoku.solutionToJSON(sudoku));
+            System.out.println("Solution is:: "+Sudoku.solutionToJSON(sudoku));
+        } finally {
+            out.close();
         }
     }
 
