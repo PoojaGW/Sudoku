@@ -480,7 +480,7 @@
 </div>
 <button type = "button" id = "newGame">New Game></button>
 <button type="button" id="checkGame">Check!></button>
-<a href="/logout">Logout</a>
+<button type = "button" id = "solveGame">Solve</button>
 <button type="button" id="logoutBtn" onclick= "window.location.href = '/logout';">Logout!> </button>
 
 
@@ -514,8 +514,14 @@
                     alert("Post was not successful");
                 }
             });
+        });
 
-
+        $("#solveGame").click(function(){
+            $.ajax({url: "/api/game", method:"put", success: function(result){
+                obj = result;
+                setGame(document, result);
+                console.log(JSON.stringify(obj));
+            }});
         });
 
 
