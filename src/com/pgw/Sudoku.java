@@ -6,6 +6,7 @@ package com.pgw;
  * and open the template in the editor.
  */
 
+// Generator code modified from https://arunabhghosal.wordpress.com/2015/04/26/generating-sudoku-puzzle/
 
 
 import java.io.BufferedReader;
@@ -15,14 +16,14 @@ import java.util.*;
 
 class Sudoku {
 
-    public static int [][] soln = new int [9][9];
-    public static int[][] grid = new int[9][9];
+    private static int [][] soln = new int [9][9];
+    private static int[][] grid = new int[9][9];
 
-    public static HashMap table = new HashMap();
+    private static HashMap table = new HashMap();
 
-    int[][]game = new int[9][9];
-    int[][]solution = new int[9][9];
-    String id;
+    private int[][]game = new int[9][9];
+    private int[][]solution = new int[9][9];
+    private String id;
     //create id
 
     public Sudoku(int[][]g, int[][]s, String key){
@@ -44,7 +45,7 @@ class Sudoku {
 
 
 
-    public static String randomString() {
+    private static String randomString() {
         char[] characterSet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".toCharArray();
         Random random = new SecureRandom();
         char[] result = new char[16];
@@ -133,8 +134,7 @@ class Sudoku {
 
 
         for(int i = 0; i <9; i ++)
-            for(int j = 0; j <9; j++)
-                grid[i][j]= soln[i][j];
+            System.arraycopy(soln[i], 0, grid[i], 0, 9);
 
         Random rand=new Random();
         int n[]={0,3,6};
@@ -149,8 +149,6 @@ class Sudoku {
             else col_change(k1,k2);
             counter++;
         }
-        int max=8;
-        int min=0;
 
         //Striking out
         for(k1=0;k1<9;k1++)
@@ -174,9 +172,10 @@ class Sudoku {
 
     }
 
-    public static void generate()
+    private static void generate()
     {
-        int k=1,n=1;
+        int k;
+        int n=1;
         for(int i=0;i<9;i++)
         {
             k=n;
@@ -199,7 +198,7 @@ class Sudoku {
         }
     }
 
-    public static void random_gen(int check){
+    private static void random_gen(int check){
         int k1,k2,max=2,min=0;
         Random r= new Random();
         for(int i=0;i<3;i++)
@@ -224,7 +223,7 @@ class Sudoku {
 
 
     //For row
-    public static void permutation_row(int k1,int k2){
+    private static void permutation_row(int k1,int k2){
         int temp;//k1 and k2 are two rows that we are selecting to interchange.
         for(int j=0;j<9;j++)
         {
@@ -234,7 +233,7 @@ class Sudoku {
         }
     }
 
-    public static void permutation_col(int k1,int k2){
+    private static void permutation_col(int k1,int k2){
         int temp;
         for(int j=0;j<9;j++)
         {
@@ -276,7 +275,7 @@ class Sudoku {
     }
 
 
-    public static void strike_out(int k1,int k2)
+    private static void strike_out(int k1,int k2)
     {
         int row_from;
         int row_to;
@@ -285,7 +284,6 @@ class Sudoku {
         int i,j,b,c;
         int rem1,rem2;
         int flag;
-        int temp= grid[k1][k2];
         int count=9;
         for(i=1;i<=9;i++)
         { flag=1;
@@ -293,11 +291,7 @@ class Sudoku {
             {
                 if(j!=k2)
                 {
-                    if(i!= grid[k1][j])
-                    {
-                        continue;
-                    }
-                    else
+                    if(i== grid[k1][j])
                     {
                         flag=0;
                         break;
@@ -310,11 +304,7 @@ class Sudoku {
                 {
                     if(c!=k1)
                     {
-                        if(i!= grid[c][k2])
-                        {
-                            continue;
-                        }
-                        else
+                        if(i== grid[c][k2])
                         {
                             flag=0;
                             break;
@@ -335,10 +325,8 @@ class Sudoku {
                     {
                         if(c!=k1 && b!=k2)
                         {
-                            if(i!= grid[c][b])
-                                continue;
-                            else{
-                                flag=0;
+                            if(i== grid[c][b]) {
+                                flag = 0;
                                 break;
                             }
                         }
