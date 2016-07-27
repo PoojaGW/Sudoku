@@ -18,7 +18,7 @@ body {
 .square {
     height: 50px;
     width: 50px;
-    color: #000000;;
+    color: black;
     background-color: #ffffff;
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 0px 0px;
@@ -29,7 +29,24 @@ body {
     display: inline-block;
     border-width: 2px;
     line-height: 50px;
-    font-size:   200%;
+    font-size:   250%;
 }
 
 
+.editable {
+    height: 50px;
+    width: 50px;
+    color: red;
+    border-color: black;
+    background-color: #ffffff;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight:bold;
+    border-style: solid;
+    display: inline-block;
+    border-width: 2px;
+    line-height: 50px;
+    font-size:   250%;
+}

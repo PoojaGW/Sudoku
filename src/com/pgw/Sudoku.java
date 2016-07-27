@@ -57,29 +57,60 @@ class Sudoku {
     }
 
 
-    public boolean check(String json, Sudoku sudoku){
-        return json==toJSON(sudoku.solution);    }
+    public static boolean check(String json, Sudoku sudoku) {
+        return json.equals(solutionToJSON(sudoku));
+    //fix at some point
+    }
+    //return json==toJSON(table.get(id).solution);}
 
-    public String toJSON(int[][]sudoku){
-        String game = "{\"game\":[";
+    public static String solutionToJSON(Sudoku sudoku){
+
+        String jsonGame = "{\"game\":[";
         for(int i=0;i<9;i++)
         {
             for(int j=0;j<9;j++)
             {
 
-                if(sudoku[i][j]==0)
-                    game+="[\""+(i+1)+"-"+(j+1)+"\",\"\"]";
+                if(sudoku.solution[i][j]==0)
+                    jsonGame+="[\""+(i+1)+"-"+(j+1)+"\",\"\"]";
                 else
-                    game+="[\""+(i+1)+"-"+(j+1)+"\",\""+sudoku[i][j]+"\"]";
+                    jsonGame+="[\""+(i+1)+"-"+(j+1)+"\",\""+sudoku.solution[i][j]+"\"]";
                 if(i!=8||j!=8) {
-                    game+=",";
+                    jsonGame+=",";
                 }
             }
 
         }
-        game+="]}";
-        System.out.println(game);
-        return game;
+        jsonGame+="],\"id\":\""+sudoku.id+"\"}";
+        System.out.println(jsonGame);
+        return jsonGame;
+    }
+
+
+
+
+
+    public static String gameToJSON(Sudoku sudoku){
+
+        String jsonGame = "{\"game\":[";
+        for(int i=0;i<9;i++)
+        {
+            for(int j=0;j<9;j++)
+            {
+
+                if(sudoku.game[i][j]==0)
+                    jsonGame+="[\""+(i+1)+"-"+(j+1)+"\",\"\"]";
+                else
+                    jsonGame+="[\""+(i+1)+"-"+(j+1)+"\",\""+sudoku.game[i][j]+"\"]";
+                if(i!=8||j!=8) {
+                    jsonGame+=",";
+                }
+            }
+
+        }
+        jsonGame+="],\"id\":\""+sudoku.id+"\"}";
+        System.out.println(jsonGame);
+        return jsonGame;
     }
 
 
