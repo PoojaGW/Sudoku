@@ -499,19 +499,24 @@
             $.ajax({url: "/api/game", success: function(result){
                 obj = result;
                 set(document, result,"setSquare");
-                console.log(JSON.stringify(obj));
+               // console.log(JSON.stringify(obj));
             }});
         });
 
-        //change
-
+        $("#solveGame").click(function(){
+            $.ajax({url: "/api/game", method:"put", success: function(result){
+                obj = result;
+                set(document, result,"setSolutionSquare");
+                console.log(JSON.stringify(obj));
+            }});
+        });
 
         $("#checkGame").click(function(){
             $.ajax({url: "/api/game", data:JSON.stringify(obj), method: "post",
                 success: function(result){
                     alert("Post was successful " + result.result);
-                    if(result.result=="false")
-                            set(document,result.game,"setIncorrect");
+                    if(result.result!="true")
+                            set(document,result,"setIncorrect");
                 },
                 error: function() {
                     alert("Post was not successful");
@@ -519,12 +524,7 @@
             });
         });
 
-        $("#solveGame").click(function(){
-            $.ajax({url: "/api/game", method:"put", success: function(result){
-                obj = result;
-                set(document, result,"setSolutionSquare");
-            }});
-        });
+
 
 
     });

@@ -55,8 +55,8 @@ public class GameServlet extends HttpServlet {
             if(Sudoku.check(game, sudoku))
                 out.println("{\"result\":\"true\"}");
             else {
-                out.println("{\"result\":\"false\",");
-                out.println(Sudoku.solutionToJSON(sudoku)+"}");
+                out.print(Sudoku.solutionToJSON(sudoku));
+                System.out.println(sudoku.solutionToJSON(sudoku));
             }
             //System.out.println(request.getParameterNames());
 //            System.out.println(Arrays.toString(request.getParameterValues("game")));
@@ -73,7 +73,7 @@ public class GameServlet extends HttpServlet {
         try {
             response.setContentType("application/json");
             out.println(Sudoku.solutionToJSON(sudoku));
-            System.out.println("Solution is:: "+Sudoku.solutionToJSON(sudoku));
+          //  System.out.println("Solution is:: "+Sudoku.solutionToJSON(sudoku));
         } finally {
             out.close();
         }

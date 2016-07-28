@@ -16,15 +16,14 @@ import java.util.*;
 
 class Sudoku {
 
-    private static int [][] soln = new int [9][9];
-    private static int[][] grid = new int[9][9];
+    public static int [][] soln = new int [9][9];
+    public static int[][] grid = new int[9][9];
 
-    private static HashMap table = new HashMap();
+    public static HashMap table = new HashMap();
 
-    private int[][]game = new int[9][9];
-    private int[][]solution = new int[9][9];
-    private String id;
-    //create id
+    int[][]game = new int[9][9];
+    int[][]solution = new int[9][9];
+    String id;
 
     public Sudoku(int[][]g, int[][]s, String key){
         game = g;
@@ -32,7 +31,15 @@ class Sudoku {
         id = key;
 
 
-
+        for(int i=0;i<9;i++)
+        {
+            for(int j=0;j<9;j++)
+            {
+                System.out.print(solution[i][j]+"\t");
+            }
+            System.out.println("");
+        }
+        System.out.println();
         for(int i=0;i<9;i++)
         {
             for(int j=0;j<9;j++)
@@ -122,19 +129,9 @@ class Sudoku {
         generate();
         random_gen(1);
         random_gen(0);
-        System.out.println();
-        for(int i=0;i<9;i++)
-        {
-            for(int j=0;j<9;j++)
-            {
-                System.out.print(soln[i][j]+"\t");
-            }
-            System.out.println("");
-        }
 
 
-        for(int i = 0; i <9; i ++)
-            System.arraycopy(soln[i], 0, grid[i], 0, 9);
+
 
         Random rand=new Random();
         int n[]={0,3,6};
@@ -149,6 +146,13 @@ class Sudoku {
             else col_change(k1,k2);
             counter++;
         }
+        int max=8;
+        int min=0;
+
+
+        for(int i = 0; i <9; i ++)
+            for(int j = 0; j <9; j++)
+                grid[i][j]= soln[i][j];
 
         //Striking out
         for(k1=0;k1<9;k1++)
@@ -172,10 +176,9 @@ class Sudoku {
 
     }
 
-    private static void generate()
+    public static void generate()
     {
-        int k;
-        int n=1;
+        int k=1,n=1;
         for(int i=0;i<9;i++)
         {
             k=n;
@@ -198,7 +201,7 @@ class Sudoku {
         }
     }
 
-    private static void random_gen(int check){
+    public static void random_gen(int check){
         int k1,k2,max=2,min=0;
         Random r= new Random();
         for(int i=0;i<3;i++)
@@ -223,7 +226,7 @@ class Sudoku {
 
 
     //For row
-    private static void permutation_row(int k1,int k2){
+    public static void permutation_row(int k1,int k2){
         int temp;//k1 and k2 are two rows that we are selecting to interchange.
         for(int j=0;j<9;j++)
         {
@@ -233,7 +236,7 @@ class Sudoku {
         }
     }
 
-    private static void permutation_col(int k1,int k2){
+    public static void permutation_col(int k1,int k2){
         int temp;
         for(int j=0;j<9;j++)
         {
@@ -250,9 +253,9 @@ class Sudoku {
         {
             for(int i=0;i<9;i++)
             {
-                temp= grid[k1][i];
-                grid[k1][i]= grid[k2][i];
-                grid[k2][i]=temp;
+                temp= soln[k1][i];
+                soln[k1][i]= soln[k2][i];
+                soln[k2][i]=temp;
             }
             k1++;
             k2++;
@@ -265,9 +268,9 @@ class Sudoku {
         {
             for(int i=0;i<9;i++)
             {
-                temp= grid[i][k1];
-                grid[i][k1]= grid[i][k2];
-                grid[i][k2]=temp;
+                temp= soln[i][k1];
+                soln[i][k1]= soln[i][k2];
+                soln[i][k2]=temp;
             }
             k1++;
             k2++;
@@ -275,7 +278,7 @@ class Sudoku {
     }
 
 
-    private static void strike_out(int k1,int k2)
+    public static void strike_out(int k1,int k2)
     {
         int row_from;
         int row_to;
@@ -284,6 +287,7 @@ class Sudoku {
         int i,j,b,c;
         int rem1,rem2;
         int flag;
+        int temp= grid[k1][k2];
         int count=9;
         for(i=1;i<=9;i++)
         { flag=1;
@@ -291,7 +295,11 @@ class Sudoku {
             {
                 if(j!=k2)
                 {
-                    if(i== grid[k1][j])
+                    if(i!= grid[k1][j])
+                    {
+                        continue;
+                    }
+                    else
                     {
                         flag=0;
                         break;
@@ -304,7 +312,11 @@ class Sudoku {
                 {
                     if(c!=k1)
                     {
-                        if(i== grid[c][k2])
+                        if(i!= grid[c][k2])
+                        {
+                            continue;
+                        }
+                        else
                         {
                             flag=0;
                             break;
@@ -325,8 +337,10 @@ class Sudoku {
                     {
                         if(c!=k1 && b!=k2)
                         {
-                            if(i== grid[c][b]) {
-                                flag = 0;
+                            if(i!= grid[c][b])
+                                continue;
+                            else{
+                                flag=0;
                                 break;
                             }
                         }
@@ -339,7 +353,7 @@ class Sudoku {
         if(count==1)
         {
             grid[k1][k2]=0;
-           // counter_num--;
+            // counter_num--;
         }
     }
 }
