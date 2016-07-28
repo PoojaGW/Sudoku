@@ -493,10 +493,12 @@
 
         var obj;
 
+
+
         $("#newGame").click(function(){
             $.ajax({url: "/api/game", success: function(result){
                 obj = result;
-                setGame(document, result);
+                set(document, result,"setSquare");
                 console.log(JSON.stringify(obj));
             }});
         });
@@ -508,7 +510,8 @@
             $.ajax({url: "/api/game", data:JSON.stringify(obj), method: "post",
                 success: function(result){
                     alert("Post was successful " + result.result);
-
+                    if(result.result=="false")
+                            set(document,result.game,"setIncorrect");
                 },
                 error: function() {
                     alert("Post was not successful");
@@ -519,8 +522,7 @@
         $("#solveGame").click(function(){
             $.ajax({url: "/api/game", method:"put", success: function(result){
                 obj = result;
-                setGame(document, result);
-                console.log(JSON.stringify(obj));
+                set(document, result,"setSolutionSquare");
             }});
         });
 

@@ -49,12 +49,15 @@ public class GameServlet extends HttpServlet {
         // Write the response message, in an HTML document.
         try {
             response.setContentType("application/json");
+
             String game = request.getParameterNames().nextElement();
-            System.out.println(game);
+            System.out.println("Solution: "+game);
             if(Sudoku.check(game, sudoku))
                 out.println("{\"result\":\"true\"}");
-            else
-                out.println("{\"result\":\"false\"}");
+            else {
+                out.println("{\"result\":\"false\",");
+                out.println(Sudoku.solutionToJSON(sudoku)+"}");
+            }
             //System.out.println(request.getParameterNames());
 //            System.out.println(Arrays.toString(request.getParameterValues("game")));
         } finally {

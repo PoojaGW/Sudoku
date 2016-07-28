@@ -16,6 +16,9 @@ function setSquare(div, value) {
         div.addEventListener("click",onClick);
         div.addEventListener("keypress",onKeypressDiv);
     }
+    
+    
+        
     else {
 
         div.innerHTML = value;
@@ -26,9 +29,32 @@ function setSquare(div, value) {
     }
 }
 
-function setGame(document, game) {
+function setSolutionSquare(div, value){
+    if(div.hasAttribute("contentEditable" )&& div.getAttribute("contentEditable")=="true"){
+        div.setAttribute("contentEditable", "true");
+        div.className="editable";
+        div.innerHTML=value;
+        div.addEventListener("click",onClick);
+        div.addEventListener("keypress",onKeypressDiv);
+    }   
+}
+
+function setIncorrect(div,value){
+    if(div.hasAttribute("contentEditable" )&& div.getAttribute("contentEditable")=="true"&&div.innerHTML!=value)
+        div.className ="editablehighlight";
+}
+
+
+function set(document, game, funcName) {
+
+    
     for (var i=0; i<game.game.length; i++) {
-        setSquare(document.getElementById(game.game[i][0]), game.game[i][1]);
+        if(funcName=="setSquare")
+            setSquare(document.getElementById(game.game[i][0]), game.game[i][1]);
+        else if(funcName=="setSolutionSquare")
+            setSolutionSquare(document.getElementById(game.game[i][0]), game.game[i][1]);
+        else if(funcName == "setIncorrect")
+            setIncorrect(document.getElementById(game.game[i][0]), game.game[i][1]);
 
     }
 }

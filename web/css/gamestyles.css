@@ -50,3 +50,22 @@ body {
     line-height: 50px;
     font-size:   250%;
 }
+
+.editablehighlight {
+    height: 50px;
+    width: 50px;
+    color: red;
+    border-color: black;
+    background-color: yellow;
+    margin: 0px 0px 0px 0px;
+    padding: 0px 0px 0px 0px;
+    text-align: center;
+    vertical-align: middle;
+    font-weight:bold;
+    border-style: solid;
+    display: inline-block;
+    border-width: 2px;
+    line-height: 50px;
+    font-size:   250%;
+}
+
