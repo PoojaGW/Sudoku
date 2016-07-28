@@ -478,8 +478,8 @@
 
     </div>
 </div>
-<button type = "button" id = "newGame">New Game></button>
-<button type="button" id="checkGame">Check!></button>
+<button type = "button" id = "newGame">New</button>
+<button type="button" id="checkGame">Check</button>
 <button type = "button" id = "solveGame">Solve</button>
 <button type="button" id="logoutBtn" onclick= "window.location.href = '/logout';">Logout!> </button>
 
@@ -493,22 +493,30 @@
 
         var obj;
 
+
+
         $("#newGame").click(function(){
             $.ajax({url: "/api/game", success: function(result){
                 obj = result;
-                setGame(document, result);
-                console.log(JSON.stringify(obj));
+                set(document, result,"setSquare");
+               // console.log(JSON.stringify(obj));
             }});
         });
 
-        //change
-
+        $("#solveGame").click(function(){
+            $.ajax({url: "/api/game", method:"put", success: function(result){
+                obj = result;
+                set(document, result,"setSolutionSquare");
+                console.log(JSON.stringify(obj));
+            }});
+        });
 
         $("#checkGame").click(function(){
             $.ajax({url: "/api/game", data:JSON.stringify(obj), method: "post",
                 success: function(result){
                     alert("Post was successful " + result.result);
-
+                    if(result.result!="true")
+                            set(document,result,"setIncorrect");
                 },
                 error: function() {
                     alert("Post was not successful");
@@ -516,13 +524,7 @@
             });
         });
 
-        $("#solveGame").click(function(){
-            $.ajax({url: "/api/game", method:"put", success: function(result){
-                obj = result;
-                setGame(document, result);
-                console.log(JSON.stringify(obj));
-            }});
-        });
+
 
 
     });
